@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fire-orange: #f97316;
+  --fire-red: #dc2626;
+  --fire-yellow: #fbbf24;
+  --lemon: #facc15;
+  --char-dark: #0a0a0a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--char-dark);
+  color: #f5f5f0;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #f97316; border-radius: 3px; }
+
+/* ============================
+   FLAME SYSTEM (CSS Pure)
+   ============================ */
+
+.flame-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flame-group {
+  position: absolute;
+  bottom: 0;
+  transform-origin: bottom center;
+}
+
+/* Individual flames using clip-path */
+.flame {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50% 50% 20% 20% / 60% 60% 30% 30%;
+  transform-origin: bottom center;
+  filter: blur(1px);
+}
+
+.flame-outer {
+  background: linear-gradient(to top, #dc2626, #ea580c, #f97316, #fb923c00);
+  animation: flame1 2s ease-in-out infinite;
+}
+
+.flame-mid {
+  background: linear-gradient(to top, #ea580c, #f97316, #fbbf24, #fbbf2400);
+  animation: flame2 2.5s ease-in-out infinite;
+  animation-delay: -0.5s;
+}
+
+.flame-inner {
+  background: linear-gradient(to top, #f97316, #fbbf24, #fef08a, #fef08a00);
+  animation: flame3 1.8s ease-in-out infinite;
+  animation-delay: -0.3s;
+}
+
+.flame-core {
+  background: linear-gradient(to top, #fbbf24, #fef9c3, #ffffff88, transparent);
+  animation: flame1 1.5s ease-in-out infinite;
+  animation-delay: -0.7s;
+  filter: blur(0.5px);
+}
+
+@keyframes flame1 {
+  0%, 100% { transform: scaleY(1) scaleX(1) rotate(-2deg); }
+  50% { transform: scaleY(1.15) scaleX(0.92) rotate(2deg); }
+}
+@keyframes flame2 {
+  0%, 100% { transform: scaleY(1) scaleX(1) rotate(3deg); }
+  50% { transform: scaleY(1.22) scaleX(0.88) rotate(-3deg); }
+}
+@keyframes flame3 {
+  0%, 100% { transform: scaleY(1) scaleX(1) rotate(0deg); }
+  33% { transform: scaleY(1.12) scaleX(0.94) rotate(-4deg); }
+  66% { transform: scaleY(0.96) scaleX(1.06) rotate(4deg); }
+}
+
+/* Ember particles */
+.ember {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fbbf24;
+  box-shadow: 0 0 6px 2px #f97316;
+  animation: ember-rise var(--duration, 3s) ease-in var(--delay, 0s) infinite;
+}
+
+@keyframes ember-rise {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 1;
+  }
+  60% { opacity: 0.8; }
+  100% {
+    transform: translateY(-180px) translateX(var(--drift, 20px)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Heat shimmer overlay */
+.heat-shimmer {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(249, 115, 22, 0.015) 2px,
+    rgba(249, 115, 22, 0.015) 4px
+  );
+  animation: shimmer 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 -100px; }
+}
+
+/* ============================
+   HERO OVERLAY GLOW
+   ============================ */
+
+.fire-glow {
+  text-shadow:
+    0 0 20px #f97316,
+    0 0 40px #ea580c,
+    0 0 80px #dc2626,
+    0 0 120px #991b1b;
+}
+
+.lemon-glow {
+  text-shadow:
+    0 0 15px #facc15,
+    0 0 30px #fbbf24,
+    0 0 60px #f59e0b;
+}
+
+/* ============================
+   CARD HOVER
+   ============================ */
+
+.menu-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(249, 115, 22, 0.3);
+}
+
+/* ============================
+   CART BADGE PULSE
+   ============================ */
+
+.cart-badge {
+  animation: badge-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* ============================
+   TOAST NOTIFICATION
+   ============================ */
+
+.toast {
+  animation: toast-in 0.4s ease-out forwards;
+}
+
+@keyframes toast-in {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Nav link underline */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #f97316;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* Section reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
