@@ -18,7 +18,7 @@ function FlameGroup({ left, flameConfigs }) {
 }
 
 function Embers() {
-  const embers = Array.from({ length: 20 }, (_, i) => ({
+  const embers = Array.from({ length: 5 }, (_, i) => ({
     id: i,
     left: `${5 + Math.random() * 90}%`,
     delay: `${Math.random() * 4}s`,
