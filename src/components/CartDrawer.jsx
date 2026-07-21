@@ -1,7 +1,7 @@
 import React from 'react'
 import { useCart } from '../CartContext'
-import FocusTrap from 'focus-trap-react' // 1. Importamos la librería
-import PropTypes from 'prop-types';
+import FocusTrap from 'focus-trap-react'
+import PropTypes from 'prop-types'
 
 export default function CartDrawer({ open, onClose }) {
   const { items, updateQty, removeItem, clearCart, total, count, buildWhatsApp } = useCart()
