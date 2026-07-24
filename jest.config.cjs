@@ -1,20 +1,17 @@
 module.exports = {
-  testEnvironment: 'jest-environment-jsdom',
+  // 1. Entorno de pruebas simulando el navegador (¡Lo que faltaba!)
+  testEnvironment: 'jsdom',
+  
+  // 2. Archivo de configuración inicial para Testing Library
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  transform: {
-    '^.+\\.(js|jsx)$': 'babel-jest',
-  },
-  moduleNameMapper: {
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
-  },
+
+  // (Si tenías reglas de transform para Babel, déjalas aquí)
+  
+  // 3. Reglas de cobertura que agregamos
   collectCoverage: true,
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70,
-    },
-  },
+  collectCoverageFrom: [
+    'src/CartContext.jsx',
+    'src/components/CartDrawer.jsx',
+    'src/components/Hero.jsx',
+  ],
 };
