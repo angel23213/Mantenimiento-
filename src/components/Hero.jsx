@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types' // <-- 1. Importamos la librería de validación
 
 function FlameGroup({ left, flameConfigs }) {
   return (
@@ -17,8 +18,27 @@ function FlameGroup({ left, flameConfigs }) {
   )
 }
 
+// <-- 2. Aquí añadimos la validación estricta que te pidieron
+FlameGroup.propTypes = {
+  // Valida que 'left' sea estrictamente un número y obligatorio
+  left: PropTypes.number.isRequired, 
+  
+  // Valida la estructura compleja de 'flameConfigs' (un arreglo de objetos con llaves específicas)
+  flameConfigs: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string.isRequired,
+      w: PropTypes.string.isRequired,
+      h: PropTypes.string.isRequired,
+      left: PropTypes.string.isRequired,
+      delay: PropTypes.string.isRequired,
+      dur: PropTypes.string.isRequired,
+      opacity: PropTypes.number,
+    })
+  ).isRequired,
+}
+
 function Embers() {
-  const embers = Array.from({ length: 5 }, (_, i) => ({
+  const embers = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     left: `${5 + Math.random() * 90}%`,
     delay: `${Math.random() * 4}s`,
@@ -121,7 +141,7 @@ export default function Hero() {
       <div className="heat-shimmer" />
 
       {/* Flames */}
-      <div className="flame-container">
+      <div className="flame-container w-full">
         {flameGroups.map((g, i) => (
           <FlameGroup key={i} left={g.left} flameConfigs={g.configs} />
         ))}
@@ -140,11 +160,11 @@ export default function Hero() {
 
         {/* Main title */}
         <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
-          <h1 className="font-display tracking-[0.08em] leading-none">
-            <span className="block text-[clamp(5rem,18vw,14rem)] text-fire-500 fire-glow animate-flicker">
+          <h1 className="font-display tracking-[0.08em] leading-none flex flex-col items-center">
+            <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-fire-500 fire-glow animate-flicker">
               LEMON
             </span>
-            <span className="block text-[clamp(5rem,18vw,14rem)] text-lemon-400 lemon-glow -mt-4 md:-mt-8">
+            <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-lemon-400 lemon-glow -mt-2 md:-mt-5">
               BROS
             </span>
           </h1>
